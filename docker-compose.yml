@@ -76,6 +76,19 @@ services:
     networks:
       - snep-network
 
+  phpmyadmin:
+    depends_on:
+      - app-v2-db
+    image: phpmyadmin
+    restart: always
+    ports:
+      - "8090:82"
+    environment:
+      PMA_HOST: app-v2-db
+      MYSQL_ROOT_PASSWORD: rootpass
+    networks:
+      - snep-network
+
 volumes:
   data:
   db-data:
