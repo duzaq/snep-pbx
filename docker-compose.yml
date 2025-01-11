@@ -1,9 +1,11 @@
 version: '3.8'
 
+
+
 services:
-  snep-v2:
-    image: btscp/snep:latest
-    container_name: snep-v2
+  snep-v6:
+    image: openstec/snep-pbx
+    container_name: snep-v6
     command: sh -c "sleep 10 && apache2-foreground"
     environment:
       - SNEP_EMP_NOME=Opens Tecnologia
@@ -52,48 +54,53 @@ services:
       - SNEP_MAIL=noreply@sneplivre.com.br
       - SNEP_HIDE_ROUTES=0
       - SNEP_DEBUG=0
-      - HOST=app-v2-db
+      - HOST=snep-v6
     volumes:
       - data:/var/www/html
       - ./custom.ini:/usr/local/etc/php/conf.d/custom.ini
     ports:
       - "81:80"
     depends_on:
-      - app-v2-db
+      - mysql-snep
     networks:
-      - snep-network
+      - rede-snep
 
-  app-v2-db:
+
+  # Database
+  mysql-snep:
+    platform: linux/x86_64
     image: mysql:5.7
-    container_name: app-v2-db
+    volumes:
+      - db_data:/var/lib/mysql
+    restart: always
+    ports:
+      - "3306:3306"
     environment:
       MYSQL_ROOT_PASSWORD: rootpass
       MYSQL_DATABASE: snep
       MYSQL_USER: snep
       MYSQL_PASSWORD: sneppass
-    volumes:
-      - db-data:/var/lib/mysql
-    ports:
-      - "82:82"
     networks:
-      - snep-network
+      - rede-snep
 
+  # phpmyadmin
   phpmyadmin:
     depends_on:
-      - app-v2-db
+      - mysql-snep
     image: phpmyadmin
     restart: always
     ports:
-      - "83:83"
+      - "8090:80"
     environment:
-      PMA_HOST: app-v2-db
-      MYSQL_ROOT_PASSWORD: rootpass
+      PMA_HOST: mysql-snep
+      MYSQL_ROOT_PASSWORD: password
     networks:
-      - snep-network
-
-volumes:
-  data:
-  db-data:
+      - rede-snep
 
 networks:
-  snep-network:
+  rede-snep:
+
+volumes:
+  db_data:
+  data:
+
