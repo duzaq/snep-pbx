@@ -56,7 +56,7 @@ services:
       - SNEP_DEBUG=0
       - HOST=snep-v6
     volumes:
-      - data:/var/www/html
+      - data-snap:/var/www/html
       - ./custom.ini:/usr/local/etc/php/conf.d/custom.ini
     ports:
       - "81:80"
@@ -67,4 +67,4 @@ networks:
   rede-snep:
 
 volumes:
-  data:
+  data-snap:
