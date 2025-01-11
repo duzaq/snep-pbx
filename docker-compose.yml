@@ -1,10 +1,59 @@
 version: '3.8'
 
+
+
 services:
   snep-v6:
     image: openstec/snep-pbx
     container_name: snep-v6
-    command: sh -c "sleep 10 && apache2-foreground"
+    environment:
+      - SNEP_EMP_NOME=Opens Tecnologia
+      - SNEP_DB_HOST=mysql-snep
+      - SNEP_DB_USERNAME=snep
+      - SNEP_DB_PASSWORD=sneppass
+      - SNEP_DB_DBNAME=snep
+      - SNEP_IP_SOCK=127.0.0.1
+      - SNEP_USER_SOCK=snep
+      - SNEP_PASS_SOCK=sneppass
+      - SNEP_VIEW_LOGGED=True
+      - SNEP_LU_TIME_LIMIT=5
+      - SNEP_PATH_VOZ=/var/www/html/snep/arquivos/
+      - SNEP_PATH_VOZ_BKP=/var/www/html/snep/arquivos/
+      - SNEP_PREFIX_INOUT=*01/*02;*03/*04;*99
+      - SNEP_LINELIMIT=50
+      - SNEP_CONVERT_GSM=False
+      - SNEP_CONFERENCE_APP=C
+      - SNEP_TEMPO_REFRESH=1
+      - SNEP_MAX_CALL_QUEUE=0
+      - SNEP_MAX_TIME_CALL=0
+      - SNEP_VER_LIG_PEND=1
+      - SNEP_AGENTS=1000-1010
+      - SNEP_VALOR_CONTROLE_QUALIDADE=250
+      - SNEP_TECHNO_CHANNELS=sip;iax2;khomp
+      - SNEP_PEERS_RANGE=1000-1999
+      - SNEP_PEERS_DIGITS=4
+      - SNEP_ENABLE_KHOMP=1
+      - SNEP_RECORD_APPLICATION=mixmonitor
+      - SNEP_RECORD_FLAG=b
+      - SNEP_RECORD_MP3=
+      - SNEP_PATH_WEB=/snep
+      - SNEP_PATH_MODREWRITE=
+      - SNEP_PATH_BASE=/var/www/html/snep
+      - SNEP_PATH_LOG=/var/log/snep/
+      - SNEP_PATH_ASTERISK_CONF=/etc/asterisk
+      - SNEP_PATH_ASTERISK_SOUNDS=/var/lib/asterisk/sounds
+      - SNEP_PATH_ASTERISK_MOH=/var/lib/asterisk/moh
+      - SNEP_ITC_REQUIRED=false
+      - SNEP_ITC_DISTRO=1
+      - SNEP_ITC_ADDRESS=https://api.opens.com.br/api/v1/
+      - SNEP_LOCALE=pt_BR
+      - SNEP_LANGUAGE=pt_BR
+      - SNEP_COUNTRY_CODE=76
+      - SNEP_TIMEZONE=America/Sao_Paulo
+      - SNEP_MAIL=noreply@sneplivre.com.br
+      - SNEP_HIDE_ROUTES=0
+      - SNEP_DEBUG=0
+      - HOST=snep-v6
     volumes:
       - data:/var/www/html
       - ./custom.ini:/usr/local/etc/php/conf.d/custom.ini
@@ -53,4 +102,3 @@ networks:
 volumes:
   db_data:
   data:
-
