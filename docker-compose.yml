@@ -6,7 +6,7 @@ services:
     container_name: snep-v2
     environment:
       - SNEP_EMP_NOME=Opens Tecnologia
-      - SNEP_DB_HOST=localhost
+      - SNEP_DB_HOST=app-v2-db
       - SNEP_DB_USERNAME=snep
       - SNEP_DB_PASSWORD=sneppass
       - SNEP_DB_DBNAME=snep
