@@ -1,12 +1,12 @@
 version: '3.8'
 
 services:
-  snep-v6:
+  snep:
     build:
       context: .    
       dockerfile: Dockerfile
     image: openstec/snep-pbx
-    container_name: snep-v6
+    container_name: snep
     environment:
       - SNEP_EMP_NOME=Opens Tecnologia
       - SNEP_DB_HOST=mysql-snep
@@ -60,8 +60,6 @@ services:
       - ./custom.ini:/usr/local/etc/php/conf.d/custom.ini
     ports:
       - "81:80"
-    depends_on:
-      - mysql-snep
     networks:
       - rede-snep
 
