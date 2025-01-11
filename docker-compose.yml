@@ -1,0 +1,59 @@
+version: '3.7'
+
+services:
+  mysql:
+    image: mysql:5.7
+    container_name: snep-mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: admin
+      MYSQL_DATABASE: snep
+    volumes:
+      - snep-mysql-data:/var/lib/mysql
+      - ./database:/docker-entrypoint-initdb.d # Pasta para scripts de inicialização do DB
+    networks:
+      - snep-network
+
+  asterisk:
+    image: andrius/asterisk:13.10.0 # Imagem pré-construída (verificar se é confiável)
+    container_name: snep-asterisk
+    privileged: true # Asterisk pode precisar de privilégios extras
+    ports:
+      - "5060:5060/udp" # Porta SIP
+      - "10000-20000:10000-20000/udp" # Portas RTP
+    volumes:
+      - snep-asterisk-config:/etc/asterisk
+      - snep-asterisk-sounds:/var/lib/asterisk/sounds
+      - snep-asterisk-moh:/var/lib/asterisk/moh
+      - snep-recordings:/var/spool/asterisk/monitor
+    depends_on:
+      - mysql
+    networks:
+      - snep-network
+
+  snep:
+    build:
+      context: .
+      dockerfile: Dockerfile # Arquivo com instruções para construir a imagem do SNEP
+    container_name: snep-app
+    ports:
+      - "80:80"
+    volumes:
+      - snep-app-data:/var/www/html
+      - snep-logs:/var/log/snep
+    depends_on:
+      - mysql
+      - asterisk
+    networks:
+      - snep-network
+
+volumes:
+  snep-mysql-data:
+  snep-asterisk-config:
+  snep-asterisk-sounds:
+  snep-asterisk-moh:
+  snep-recordings:
+  snep-app-data:
+  snep-logs:
+
+networks:
+  snep-network:
