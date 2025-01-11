@@ -4,6 +4,7 @@ services:
   snep-v2:
     image: btscp/snep:latest
     container_name: snep-v2
+    command: sh -c "sleep 10 && apache2-foreground"
     environment:
       - SNEP_EMP_NOME=Opens Tecnologia
       - SNEP_DB_HOST=app-v2-db
