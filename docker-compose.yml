@@ -9,7 +9,7 @@ services:
     command: sh -c "sleep 10 && apache2-foreground"
     environment:
       - SNEP_EMP_NOME=Opens Tecnologia
-      - SNEP_DB_HOST=app-v2-db
+      - SNEP_DB_HOST=mysql-snep
       - SNEP_DB_USERNAME=snep
       - SNEP_DB_PASSWORD=sneppass
       - SNEP_DB_DBNAME=snep
