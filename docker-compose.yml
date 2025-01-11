@@ -14,12 +14,12 @@ services:
       - snep-network
 
   asterisk:
-    image: andrius/asterisk:13.10.0 # Imagem pré-construída (verificar se é confiável)
+    image: andrius/asterisk:14 # Imagem pré-construída (verificar se é confiável)
     container_name: snep-asterisk
     privileged: true # Asterisk pode precisar de privilégios extras
     ports:
       - "5060:5060/udp" # Porta SIP
-      - "10000-20000:10000-20000/udp" # Portas RTP
+      - "10000-10010:10000-10010/udp" # Portas RTP
     volumes:
       - snep-asterisk-config:/etc/asterisk
       - snep-asterisk-sounds:/var/lib/asterisk/sounds
