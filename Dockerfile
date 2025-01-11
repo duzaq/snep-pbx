@@ -7,7 +7,7 @@ RUN apt-get update && apt-get install -y \
     unixodbc-dev \
     libmyodbc \
     odbcinst1debian2 \
-    libcurl3 \
+    libcurl4-openssl-dev \
     libncurses5-dev \
     git \
     build-essential \
