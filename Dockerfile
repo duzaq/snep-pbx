@@ -5,7 +5,7 @@ FROM btscp/snep:latest
 COPY custom.ini /usr/local/etc/php/conf.d/custom.ini
 
 # Expõe a porta 80
-EXPOSE 80
+EXPOSE 81
 
 # Define o diretório de trabalho
 WORKDIR /var/www/html
