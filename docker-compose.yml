@@ -73,6 +73,8 @@ services:
       MYSQL_PASSWORD: sneppass
     volumes:
       - db-data:/var/lib/mysql
+    ports:
+      - "82:82"
     networks:
       - snep-network
 
@@ -82,7 +84,7 @@ services:
     image: phpmyadmin
     restart: always
     ports:
-      - "8090:82"
+      - "83:83"
     environment:
       PMA_HOST: app-v2-db
       MYSQL_ROOT_PASSWORD: rootpass
