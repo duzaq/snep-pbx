@@ -14,7 +14,7 @@ services:
       - snep-network
 
   asterisk:
-    image: andrius/asterisk:14 # Imagem pré-construída (verificar se é confiável)
+    image: andrius/asterisk:latest # Imagem pré-construída (verificar se é confiável)
     container_name: snep-asterisk
     privileged: true # Asterisk pode precisar de privilégios extras
     ports:
