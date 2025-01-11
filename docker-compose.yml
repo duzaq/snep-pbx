@@ -6,6 +6,8 @@ services:
   snep-v6:
     image: openstec/snep-pbx
     container_name: snep-v6
+    context: .
+    dockerfile: Dockerfile
     command: sh -c "sleep 10 && apache2-foreground"
     environment:
       - SNEP_EMP_NOME=Opens Tecnologia
