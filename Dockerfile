@@ -5,7 +5,7 @@ FROM php:7.4-apache
 RUN apt-get update && apt-get install -y \
     unixodbc \
     unixodbc-dev \
-    libmyodbc \
+    odbc-mysql \
     odbcinst1debian2 \
     libcurl4-openssl-dev \
     libncurses5-dev \
